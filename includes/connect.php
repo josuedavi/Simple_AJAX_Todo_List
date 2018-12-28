@@ -1,10 +1,18 @@
 <?php
-	$server = "localhost";
-	$db_name = ""; // Enter your database name
-	$db_user = ""; // Enter your username
-	$db_pass = ""; // Enter your password
-	
+    $server = "localhost";
+    $db_user = "root";
+    $db_pass = "root";
+    $db_name = "todo";
 
-	mysql_connect($server, $db_user, $db_pass) or die("Could not connect to server!");
-	mysql_select_db($db_name) or die("Could not connect to database!");
+
+$link = mysqli_connect($server, $db_user, $db_pass, $db_name);
+
+if (!$link) {
+    echo "Error: Unable to connect to MySQL." . PHP_EOL;
+    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+    exit;
+}
+
+
 ?>

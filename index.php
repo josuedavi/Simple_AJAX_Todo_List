@@ -3,33 +3,34 @@
 <head>
 	<title>Simple To-Do List</title>
 	<link rel="stylesheet" href="style.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+	<script src="jquery-3.3.1.min.js"></script>
 </head>
 <body>
 	<div class="wrap">
 		<div class="task-list">
 			<ul>
 
-			<?php 
+			<?php
 				require("includes/connect.php");
-
-				$query = mysql_query("SELECT * FROM tasks ORDER BY date ASC, time ASC");
-				$numrows = mysql_num_rows($query);
+				$sql = "SELECT * FROM tasks ORDER BY date ASC, time ASC";
+				$query = mysqli_query($conn, $sql);
+				$numrows = mysqli_num_rows($query);
 
 				if($numrows>0){
-					while( $row = mysql_fetch_assoc( $query ) ){
-
+					while( $row = mysql_fetch_array( $query, MYSQLI_ASSOC ) ){
+				  
 						$task_id = $row['id'];
 						$task_name = $row['task'];
-
+				  
 						echo '<li>
-								<span>'.$task_name.'</span>
-								<img id="'.$task_id.'" class="delete-button" width="10px" src="images/close.svg" />
-							  </li>';
+									  <span>'.$task_name.'</span>
+						  <img id="'.$task_id.'" class="delete-button" width="10px" src="images/close.svg" />
+					   </li>';
 					}
-				}
-
+					  }
 			?>
-				
+
 			</ul>
 		</div>
 		<form class="add-new-task" autocomplete="off">
@@ -40,7 +41,7 @@
 	<!-- JavaScript Files Go Here -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
-		
+
 		add_task(); // Call the add_task function
 		delete_task(); // Call the delete_task function
 
